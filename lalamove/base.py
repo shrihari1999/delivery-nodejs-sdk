@@ -1,4 +1,4 @@
-from config import Config
+from .config import Config
 
 class Base:
     config: Config
@@ -6,6 +6,6 @@ class Base:
     def __init__(self, config: Config) -> None:
         self.config = config
 
-    def getConfig(self, config: Config) -> Config:
+    def getConfig(self) -> Config:
         return self.config
 

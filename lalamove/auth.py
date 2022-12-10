@@ -1,4 +1,4 @@
-from config import Config
+from .config import Config
 import hashlib, hmac
 
 def signRequest(config: Config, method: str, path: str, timestamp: int, body: str) -> str:
