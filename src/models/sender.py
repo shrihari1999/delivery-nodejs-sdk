@@ -1,4 +1,4 @@
-from internal_types import TypedDict
+from .internal_types import TypedDict
 
 class Sender(TypedDict, total=True):
     stopId: str

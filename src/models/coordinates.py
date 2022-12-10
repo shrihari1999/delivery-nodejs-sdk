@@ -1,4 +1,4 @@
-from internal_types import TypedDict
+from .internal_types import TypedDict
 
 class Coordinates(TypedDict, total=True):
     lat: str

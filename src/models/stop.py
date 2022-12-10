@@ -1,5 +1,5 @@
-from internal_types import TypedDict, Optional, Dict
-from coordinates import Coordinates
+from .internal_types import TypedDict, Optional, Dict
+from .coordinates import Coordinates
 
 class Stop(TypedDict, total=False):
     id: Optional[str]

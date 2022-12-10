@@ -1,4 +1,4 @@
-from internal_types import TypedDict, Optional, List
+from .internal_types import TypedDict, Optional, List
 
 class Item(TypedDict, total=False):
     quantity: Optional[str]

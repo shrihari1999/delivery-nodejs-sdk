@@ -1,4 +1,4 @@
-from internal_types import TypedDict, Optional
+from .internal_types import TypedDict, Optional
 
 class PriceBreakdown(TypedDict, total=False):
     base: Optional[str]
