@@ -19,7 +19,7 @@ def defineCallerModule(path: str, method: str) -> CallerModule:
     if method == "POST" and path == "/v3/quotations":
         return CallerModule.PostQuotation
 
-    if method == "GET" and path.includes("/v3/quotations/"):
+    if method == "GET" and ("/v3/quotations/" in path):
         return CallerModule.GetQuotation
 
     if method == "POST" and path == "/v3/orders":
@@ -40,7 +40,7 @@ def defineCallerModule(path: str, method: str) -> CallerModule:
     if method == "DELETE" and re.findall(r"/v3/order/(.*)/driver/(.*)$", path):
         return CallerModule.ChangeDriver
 
-    if method == "GET" and path.includes("/v3/cities"):
+    if method == "GET" and ("/v3/cities" in path):
         return CallerModule.GetMarket
 
     if method == "POST" and path == "/v3/webhook":
