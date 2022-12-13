@@ -14,6 +14,7 @@ class BaseHTTPClient:
         self.__config = config
 
 
+    # @protected
     @staticmethod
     def errorHandler(error: Union[Exception, APIError]):
         if isinstance(error, APIError):

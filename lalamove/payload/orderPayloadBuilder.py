@@ -4,50 +4,50 @@ from lalamove.models.sender import Sender
 from lalamove.models.recipient import Recipient
 
 class OrderPayloadBuilder:
-    __quotationId: Union[str, None]
+    quotationId: Union[str, None]
 
-    __sender: Union[Sender, None]
+    sender: Union[Sender, None]
 
-    __recipients: Union[List[Recipient], None]
+    recipients: Union[List[Recipient], None]
 
-    __isPODEnabled: Optional[bool]
+    isPODEnabled: Optional[bool]
 
-    __isRecipientSMSEnabled: Optional[bool]
+    isRecipientSMSEnabled: Optional[bool]
 
-    __partner: Optional[str]
+    partner: Optional[str]
 
-    __metadata: Optional[dict]
+    metadata: Optional[dict]
 
     @staticmethod
     def orderPayload() -> None:
         return OrderPayloadBuilder()
 
     def withQuotationID(self, quotationId: str) -> None:
-        self.__quotationId = quotationId
+        self.quotationId = quotationId
         return self
 
     def withSender(self, sender: Sender) -> None:
-        self.__sender = sender
+        self.sender = sender
         return self
 
     def withRecipients(self, recipients: List[Recipient]) -> None:
-        self.__recipients = recipients
+        self.recipients = recipients
         return self
 
     def withIsPODEnabled(self, isPodEnabled: bool) -> None:
-        self.__isPODEnabled = isPodEnabled
+        self.isPODEnabled = isPodEnabled
         return self
 
     def withIsRecipientSmsEnabled(self, isRecipientSMSEnabled: bool) -> None:
-        self.__isRecipientSMSEnabled = isRecipientSMSEnabled
+        self.isRecipientSMSEnabled = isRecipientSMSEnabled
         return self
 
     def withPartner(self, partner: str) -> None:
-        self.__partner = partner
+        self.partner = partner
         return self
 
     def withMetadata(self, metadata: object) -> None:
-        self.__metadata = metadata
+        self.metadata = metadata
         return self
 
     def build(self) -> OrderPayload:
