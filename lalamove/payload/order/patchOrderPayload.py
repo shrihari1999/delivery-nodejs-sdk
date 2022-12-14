@@ -3,7 +3,7 @@ from lalamove.models.patchOrderStop import PatchOrderStop
 from operator import itemgetter
 
 class PatchOrderPayload:
-    _stops: Optional[List[PatchOrderStop]]
+    stops: Optional[List[PatchOrderStop]]
 
     def __init__(self, builder) -> None:
         stops = itemgetter('stops')(builder)
@@ -15,5 +15,5 @@ class PatchOrderPayload:
         if not all(map(lambda stop: stop.get('address'), stops or [])):
             raise Exception("Address cannot be empty")
 
-        self._stops = stops
+        self.stops = stops
 

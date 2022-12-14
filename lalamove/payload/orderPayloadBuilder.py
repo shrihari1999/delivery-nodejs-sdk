@@ -46,7 +46,7 @@ class OrderPayloadBuilder:
         self.partner = partner
         return self
 
-    def withMetadata(self, metadata: object) -> None:
+    def withMetadata(self, metadata: dict) -> None:
         self.metadata = metadata
         return self
 

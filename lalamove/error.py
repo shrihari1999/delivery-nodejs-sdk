@@ -40,9 +40,9 @@ class APIError(Exception):
             r = json.loads(response)
 
             if type(r['errors']) is list:
-                self.errors: List[IError] = r['errors']
+                self.errors: List[IError] = [IError(e) for e in r['errors']]
             elif r['errors'] is not None and type(r['errors']) is dict:
-                self.errors: IError = r['errors']
+                self.errors: IError = IError(r['errors'])
         except:
             unknown: IError = IError(
                 message="Unknown error"
@@ -105,6 +105,6 @@ class APIError(Exception):
 
         if type(self.errors) is list:
             e: List[IError] = self.errors
-            return e[:1]
+            return next(iter(e), None)
 
         return self.errors

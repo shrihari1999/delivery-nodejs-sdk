@@ -4,19 +4,19 @@ from lalamove.models.item import Item
 from datetime import datetime
 
 class QuotationPayload:
-    __scheduleAt: Optional[datetime]
+    scheduleAt: Optional[datetime]
 
-    __serviceType: str
+    serviceType: str
 
-    __specialRequests: Optional[List[str]]
+    specialRequests: Optional[List[str]]
 
-    __language: Union[str, None]
+    language: Union[str, None]
 
-    __stops: List[Stop]
+    stops: List[Stop]
 
-    __isRouteOptimized: Optional[bool]
+    isRouteOptimized: Optional[bool]
 
-    __item: Optional[Item]
+    item: Optional[Item]
 
     def __init__(self, qpb) -> None:
         if qpb.serviceType == None:
@@ -25,11 +25,20 @@ class QuotationPayload:
         if qpb.stops == None:
             raise Exception("Stops cannot be empty")
 
-        self.__scheduleAt = qpb.scheduleAt
-        self.__serviceType = qpb.serviceType
-        self.__language = qpb.language
-        self.__specialRequests = qpb.specialRequests
-        self.__stops = qpb.stops
-        self.__isRouteOptimized = qpb.isRouteOptimized
-        self.__item = qpb.item
-
+        if getattr(qpb, 'scheduleAt', None) is not None:
+            self.scheduleAt = qpb.scheduleAt
+        
+        self.serviceType = qpb.serviceType
+        
+        self.language = qpb.language
+        
+        if getattr(qpb, 'specialRequests', None) is not None:
+            self.specialRequests = qpb.specialRequests
+        
+        self.stops = qpb.stops
+        
+        if getattr(qpb, 'isRouteOptimized', None) is not None:
+            self.isRouteOptimized = qpb.isRouteOptimized
+        
+        if getattr(qpb, 'item', None) is not None:
+            self.item = qpb.item

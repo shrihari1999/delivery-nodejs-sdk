@@ -26,12 +26,14 @@ class BaseHTTPClient:
     def makeCall(self, market: str, path: str, body: Optional[None] = None, method: str = "GET") -> requests.Response:
         pythonVersion = json.dumps(sys.version_info)
         timestamp = round(datetime.now().timestamp() * 1000)
+        body_data = body.__dict__ if hasattr(body, '__dict__') else body
+        body = {"data": body_data} if body else None
         signature = signRequest(
             self.__config,
             method,
             path,
             timestamp,
-            f'{"data": {json.dumps(body)}}' if body else None
+            body
         )
         headers = {
             "Accept": "application/json",
@@ -42,8 +44,6 @@ class BaseHTTPClient:
             "Authorization": f"hmac {self.__config.publicKey}:{timestamp}:{signature}",
             "Market": market,
         }
-        if body:
-            body = json.dumps({"data": json.dumps(body)})
 
         try:
             response = requests.request(
@@ -52,18 +52,19 @@ class BaseHTTPClient:
                 headers=headers,
                 json=body
             )
-            if response.status_code > 299:
-                raise APIError(
-                    defineCallerModule(path, method),
-                    response.status_code,
-                    response.text,
-                    'Something went wrong with your request'
-                )
-            elif len(response.text) == 0:
-                return json.loads("{}")
-            else:
-                return response.json()['data']
         except Exception as e:
             print(f"Encountered an error trying to make a request: {e}")
             raise APIError(defineCallerModule(path, method), 0, "", e)
+        
+        if response.status_code > 299:
+            raise APIError(
+                defineCallerModule(path, method),
+                response.status_code,
+                response.text,
+                'Something went wrong with your request'
+            )
+        elif len(response.text) == 0:
+            return json.loads("{}")
+        else:
+            return response.json()['data']
 

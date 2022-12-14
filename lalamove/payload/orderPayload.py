@@ -3,19 +3,19 @@ from lalamove.models.sender import Sender
 from lalamove.models.recipient import Recipient
 
 class OrderPayload:
-    __quotationId: Union[str, None]
+    quotationId: Union[str, None]
 
-    __sender: Union[Sender, None]
+    sender: Union[Sender, None]
 
-    __recipients: Union[List[Recipient], None]
+    recipients: Union[List[Recipient], None]
 
-    __isPODEnabled: Optional[bool]
+    isPODEnabled: Optional[bool]
 
-    __isRecipientSMSEnabled: Optional[bool]
+    isRecipientSMSEnabled: Optional[bool]
 
-    __partner: Optional[str]
+    partner: Optional[str]
 
-    __metadata: Optional[dict]
+    metadata: Optional[dict]
 
     def __init__(self, opb):
         if opb.quotationId is None:
@@ -27,11 +27,19 @@ class OrderPayload:
         if opb.recipients is None:
             raise Exception("recipients cannot be empty")
         
-        self.__quotationId = opb.quotationId
-        self.__sender = opb.sender
-        self.__recipients = opb.recipients
-        self.__isPODEnabled = opb.isPODEnabled
-        self.__isRecipientSMSEnabled = opb.isRecipientSMSEnabled
-        self.__partner = opb.partner
-        self.__metadata = opb.metadata
+        self.quotationId = opb.quotationId
+        self.sender = opb.sender
+        self.recipients = opb.recipients
+        
+        if getattr(opb, 'isPODEnabled', None) is not None:
+            self.isPODEnabled = opb.isPODEnabled
+        
+        if getattr(opb, 'isRecipientSMSEnabled', None) is not None:
+            self.isRecipientSMSEnabled = opb.isRecipientSMSEnabled
+        
+        if getattr(opb, 'partner', None) is not None:
+            self.partner = opb.partner
+        
+        if getattr(opb, 'metadata', None) is not None:
+            self.metadata = opb.metadata
 
